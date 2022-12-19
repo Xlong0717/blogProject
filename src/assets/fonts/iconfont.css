@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3826856 */
-  src: url('iconfont.woff2?t=1671286050063') format('woff2'),
-       url('iconfont.woff?t=1671286050063') format('woff'),
-       url('iconfont.ttf?t=1671286050063') format('truetype');
+  src: url('iconfont.woff2?t=1671464759285') format('woff2'),
+       url('iconfont.woff?t=1671464759285') format('woff'),
+       url('iconfont.ttf?t=1671464759285') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-jiantou_yemian_xiangyou_o:before {
+  content: "\eb93";
+}
+
+.icon-jiantou_yemian_xiangyou_o-copy:before {
+  content: "\eb94";
 }
 
 .icon-wenjianjia:before {
