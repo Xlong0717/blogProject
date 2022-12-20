@@ -1,15 +1,15 @@
 <template>
   <div class="app">
     <transition-group>
-      <el-card class="box-card">
-        <div class="card_item_box">
+      <el-card class="box-card" v-for="(item,index) in listDetail " :key="index">
+        <div class="card_item_box" >
           <!-- 头部 -->
-          <div class="card_head">Vue双向数据绑定原理</div>
+          <div class="card_head">{{ item.title }}</div>
           <!-- 中间 -->
           <div class="card_title">
             <span>
               <i class="iconfont icon-rili1" style="margin-right: 3px"></i
-              >创建时间:2022-01-18 18:38:34</span
+              >创建时间:{{item.start_time }}</span
             >
             <el-divider direction="vertical" style="margin-top: 4px" />
             <span>
@@ -17,7 +17,7 @@
                 class="iconfont icon-jiaofuriqi-copy"
                 style="margin-right: 3px"
               ></i
-              >修改时间:2022-01-18 18:38:34</span
+              >修改时间:{{ item.end_time }}</span
             >
             <el-divider direction="vertical" style="margin-top: 4px" />
             <span>
@@ -25,9 +25,18 @@
               >分类:Vue原理解析</span
             >
           </div>
-          <div class="cart_title"><div class="left_diveder"></div><div class="title_text"><p>基于autojs实现的弹琴自助脚本(可自定义)</p></div> </div>
-          <div class="follter_btn">
-            <div class="btn curros text-none"><div>阅读全文<i class="iconfont icon-jiantou_yemian_xiangyou_o"></i></div></div>
+          <div class="cart_title">
+            <div class="left_diveder"></div>
+            <div class="title_text">
+              <p>{{ item.msg }}</p>
+            </div>
+          </div>
+          <div class="follter_btn" @click="router.push(`/Detail?id=${item.id}`)">
+            <div class="btn curros text-none">
+              <div>
+                阅读全文<i class="iconfont icon-jiantou_yemian_xiangyou_o"></i>
+              </div>
+            </div>
           </div>
         </div>
       </el-card>
@@ -38,15 +47,48 @@
 <script setup lang="ts">
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
-import {getListArticle} from '@/api/home/index'
+import { getListArticle } from '@/api/home/index';
+import {getNewDay} from '@/utils/date/index'
+import {useRoute,useRouter} from 'vue-router'
+
+const route = useRoute() ;
+const router = useRouter();
+
+
+// 定义首页list 接口数据
+
+interface Ilist {
+  id: number;
+  title: string;
+  detail: string;
+  start_time: string;
+  end_time: string;
+  msg:string 
+}
+
+// let listDetail: Array<Ilist> = [
+//   // { id: 1, title: '', detail: '', start_time: '', end_time: '' },
+// ];
+
+let  listDetail = ref([]) ; 
+
+// 定义查询列表方法
+const getList = () => {
+  getListArticle({}).then((res) => {
+           if(res.code == 200 ){
+            listDetail.value  =  res.data ; 
+            listDetail.value.forEach((item:Ilist|any)=>{
+                item.end_time = getNewDay(item.end_time) ; 
+                item.start_time =  getNewDay(item.start_time)
+            })
+          
+           }
+  });
+
+};
 
 onMounted(() => {
-  getListArticle({}).then((res)=>{
-    console.log(res,'resss')
-  })
-  // axios.post('http://127.0.0.1:3007/api/articleList', {}).then((res) => {
-  //   console.log(res, 'res');
-  // });
+  getList();
 });
 </script>
 
@@ -56,6 +98,7 @@ onMounted(() => {
   height: 100%;
   .box-card {
     height: 280px;
+    margin-bottom: 20px;
     .card_item_box {
       padding: 10px 40px 40px 40px;
       .card_head {
@@ -74,38 +117,38 @@ onMounted(() => {
         margin-top: 15px;
         margin-bottom: 60px;
       }
-      .cart_title{
+      .cart_title {
         display: flex;
-        .left_diveder{
+        .left_diveder {
           width: 3px;
           height: 27px;
-          background-color: #DDDDDD;
+          background-color: #dddddd;
         }
-        .title_text{
+        .title_text {
           color: #666666;
           margin-left: 15px;
         }
       }
-      .follter_btn{
+      .follter_btn {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 30px;
-        .btn:hover{
+        .btn:hover {
           color: #ffff;
-     background:#222222;
+          background: #222222;
         }
-        .btn{
+        .btn {
           color: #555;
           display: flex;
           justify-content: center;
-           align-items: center;
+          align-items: center;
           width: 110px;
-          height:32px;
+          height: 32px;
           border: 2px solid #555;
           text-decoration: none;
           transition: background 0.5s;
-     -webkit-transition: background 0.5s;
+          -webkit-transition: background 0.5s;
         }
       }
     }
