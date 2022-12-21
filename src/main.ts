@@ -24,6 +24,8 @@ import '@kangc/v-md-editor/lib/style/preview.css';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 
+// 音乐播放器 
+
 // Prism
 import Prism from 'prismjs';
 // 代码高亮

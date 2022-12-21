@@ -22,10 +22,11 @@
             <el-divider direction="vertical" style="margin-top: 4px" />
             <span>
               <i class="iconfont icon-wenjianjia" style="margin-right: 3px"></i
-              >分类:Vue原理解析</span
+              >分类:{{ item.type_title }}</span
             >
           </div>
-          <div class="cart_title">
+          <div>
+            <div class="cart_title">
             <div class="left_diveder"></div>
             <div class="title_text">
               <p>{{ item.msg }}</p>
@@ -38,6 +39,8 @@
               </div>
             </div>
           </div>
+          </div>
+         
         </div>
       </el-card>
     </transition-group>
@@ -63,14 +66,26 @@ interface Ilist {
   detail: string;
   start_time: string;
   end_time: string;
-  msg:string 
+  msg:string ;
+  type:number;
+  type_title:number
 }
 
 // let listDetail: Array<Ilist> = [
 //   // { id: 1, title: '', detail: '', start_time: '', end_time: '' },
 // ];
 
-let  listDetail = ref([]) ; 
+let  listDetail = ref([
+  {id: 0,
+  title: '',
+  detail: '',
+  start_time: '',
+  end_time:'',
+  msg:'',
+  type:1,
+  type_title:''
+}
+]) ; 
 
 // 定义查询列表方法
 const getList = () => {
@@ -93,11 +108,23 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@media (min-width: 500px) and (max-width: 700px){
+  .box-card{
+    // background-color: red;
+    height: 320px;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 400px){
+  .box-card{
+    height: 469px;
+  }
+}
 .app {
   width: 100%;
   height: 100%;
   .box-card {
-    height: 280px;
+    // height: 280px;
     margin-bottom: 20px;
     .card_item_box {
       padding: 10px 40px 40px 40px;

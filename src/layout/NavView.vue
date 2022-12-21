@@ -107,6 +107,7 @@
       </el-affix>
     </transition>
   </div>
+  
 </template>
 <script lang="ts">
 import { useRoute } from "vue-router";
@@ -119,6 +120,8 @@ interface NavList {
 }
 export default defineComponent({
   setup() {
+
+
     let navList: NavList[] = [
       { name: "首页", icon: "iconfont icon-shouye", active: "Home" },
       {
@@ -159,8 +162,11 @@ export default defineComponent({
       route,
       loading,
       data,
+
     };
-  },
+  },components:{
+
+  }
 });
 </script>
 <style>
