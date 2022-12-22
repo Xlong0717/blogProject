@@ -2,7 +2,8 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 const isDev = process.env.NODE_ENV == 'development';
 const request = axios.create({
-  baseURL: 'http://127.0.0.1:3000',
+  // baseURL: 'http://127.0.0.1:3000',
+  baseURL: 'http://43.142.61.154:3000',
   timeout: 30000,
 });
 

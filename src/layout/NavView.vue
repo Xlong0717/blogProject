@@ -13,7 +13,7 @@
               v-for="(item, index) in routerList"
               :key="index"
             >
-              <a :href="'/' + item.active">
+              <a :href="'#' + item.active">
                 <i class="post-meta-item-icon" :class="item.icon"></i>{{ item.name }} {{ item.active }}
               </a>
             </li>

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7339838",
+      "name": "选项",
+      "font_class": "xuanxiang",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "33494865",
+      "name": "选项-copy",
+      "font_class": "xuanxiang-copy",
+      "unicode": "eb95",
+      "unicode_decimal": 60309
+    },
+    {
       "icon_id": "5387932",
       "name": "箭头_页面_向右_o",
       "font_class": "jiantou_yemian_xiangyou_o",
