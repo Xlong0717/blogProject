@@ -84,6 +84,10 @@
     </div>
     <!-- <div class="rights"><live2d></live2d></div> -->
   </div>
+
+
+  
+
 </template>
 
 <script lang="ts" setup>

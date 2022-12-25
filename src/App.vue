@@ -13,7 +13,24 @@
 
 <script setup lang="ts">
 import home from '@/views/Home/index.vue'
+import { onMounted } from 'vue';
 
+
+onMounted(()=>{
+     setTimeout(() => {
+      window.L2Dwidget.init({
+          pluginRootPath: 'live2dw/',
+          pluginJsPath: 'lib/',
+          pluginModelPath: 'live2d-widget-model-haru_1/assets/',
+          tagMode: false,
+          debug: false,
+          model: { jsonPath: '../live2dw/live2d-widget-model-haru_1/assets/haru01.model.json' },
+          display: { position: 'right', width: 100, height: 300 },
+          mobile: { show: true },
+          log: false
+          })
+    }, 1000)
+})
 
 
 </script>

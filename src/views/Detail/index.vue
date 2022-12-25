@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-md-preview  :text="str"></v-md-preview>
+    <el-card  class="box-card">
+      <loadingVue :loading="loading" ></loadingVue>
+      <v-md-preview v-highlight  left-toolbar="undo redo | customToolbar"  :default-fullscreen="true" :default-show-toc="true"   :text="str"  ></v-md-preview>
+    </el-card>
+
   </div>
 </template>
 
@@ -8,12 +12,15 @@
 import {ref,onMounted} from 'vue'
 import {articleDetail} from '@/api/home/index'
 import { useRoute,useRouter } from 'vue-router';
+import loadingVue from '@/components/loading.vue';
 const route = useRoute () ; 
 let str  = ref('');
-
+let loading = ref(true);
 onMounted(()=>{
   articleDetail({id:route.query.id}).then((res)=>{
+        console.log(res,'res')
             str.value = res.data.container;
+            loading.value = false ;
   })
 })
 

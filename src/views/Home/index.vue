@@ -1,6 +1,7 @@
 <template>
   <div class="app">
-    <transition-group>
+    <loadingVue :loading="loading" ></loadingVue>
+    <transition-group v-if="!loading">
       <el-card class="box-card" v-for="(item,index) in listDetail " :key="index">
         <div class="card_item_box" >
           <!-- 头部 -->
@@ -53,10 +54,12 @@ import { onMounted, ref } from 'vue';
 import { getListArticle } from '@/api/home/index';
 import {getNewDay} from '@/utils/date/index'
 import {useRoute,useRouter} from 'vue-router'
+import loadingVue from '@/components/loading.vue';
 
 const route = useRoute() ;
 const router = useRouter();
 
+let loading = ref(true);
 
 // 定义首页list 接口数据
 
@@ -95,6 +98,8 @@ const getList = () => {
             listDetail.value.forEach((item:Ilist|any)=>{
                 item.end_time = getNewDay(item.end_time) ; 
                 item.start_time =  getNewDay(item.start_time)
+                loading.value = false 
+                
             })
           
            }

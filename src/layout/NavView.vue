@@ -112,6 +112,8 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { defineComponent, ref } from "vue";
+
+
 // import { GetPageTable } from "@/api";
 interface NavList {
   name: string;
@@ -120,6 +122,7 @@ interface NavList {
 }
 export default defineComponent({
   setup() {
+
 
 
     let navList: NavList[] = [
@@ -162,10 +165,11 @@ export default defineComponent({
       route,
       loading,
       data,
+      
 
     };
   },components:{
-
+ 
   }
 });
 </script>
