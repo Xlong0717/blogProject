@@ -27,3 +27,13 @@ export const artilsTypes =((data:object)=>{
 export const artList  =(type:number)=>{
   return request.post('/api/artTypes',{type})
 }
+
+// 查询相册的浏览次数
+export const imgCounter = (((data:any)=>{
+  return request.post('/api/picturecounter',{})
+}))
+
+// 查询所有图片
+export const imgList =((data:any)=>{
+    return request.post('/api/imgsList',{});
+})

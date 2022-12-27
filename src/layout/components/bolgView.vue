@@ -250,7 +250,7 @@ let routerList: NavList[] = [
   {
     name: '相册',
     icon: 'iconfont icon-xiangce',
-    active: 'xc',
+    active: 'PhoneImg',
   },
 ];
 

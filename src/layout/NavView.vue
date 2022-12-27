@@ -2,7 +2,7 @@
   <div class="nav-wrap">
     <transition name="slide-fade" :appear="true">
       <div class="header-inner">
-        <div class="site-brand-wrapper  text-none ">
+        <div class="site-brand-wrapper text-none">
           <a class="site-title" href="/">记昨日书</a>
           <p>山有木兮卿有意，昨夜星辰恰似你</p>
         </div>
@@ -14,7 +14,8 @@
               :key="index"
             >
               <a :href="'#' + item.active">
-                <i class="post-meta-item-icon" :class="item.icon"></i>{{ item.name }} {{ item.active }}
+                <i class="post-meta-item-icon" :class="item.icon"></i
+                >{{ item.name }} {{ item.active }}
               </a>
             </li>
           </ul>
@@ -107,12 +108,10 @@
       </el-affix>
     </transition>
   </div>
-  
 </template>
 <script lang="ts">
-import { useRoute } from "vue-router";
-import { defineComponent, ref } from "vue";
-
+import { useRoute } from 'vue-router';
+import { defineComponent, ref } from 'vue';
 
 // import { GetPageTable } from "@/api";
 interface NavList {
@@ -122,33 +121,31 @@ interface NavList {
 }
 export default defineComponent({
   setup() {
-
-
-
     let navList: NavList[] = [
-      { name: "首页", icon: "iconfont icon-shouye", active: "Home" },
+      { name: '首页', icon: 'iconfont icon-shouye', active: 'Home' },
       {
-        name: "关于",
-        icon: "iconfont  icon-jurassic_user",
-        active: "About",
+        name: '关于',
+        icon: 'iconfont  icon-jurassic_user',
+        active: 'About',
       },
-     
-      { name: "标签", icon: "iconfont icon-24gf-tags3", active: "Tags" },
-      { name: "分类", icon: "iconfont icon-yingyongzhongxin", active: "Th" },
+
+      { name: '标签', icon: 'iconfont icon-24gf-tags3', active: 'Tags' },
       {
-        name: "归档",
-        icon: "iconfont  icon-tidangan",
-        active: "Archive",
+        name: '相册',
+        icon: 'iconfont icon-xiangce',
+        active: 'PhoneImg',
+      },
+      { name: '分类', icon: 'iconfont icon-yingyongzhongxin', active: 'Th' },
+
+      {
+        name: '归档',
+        icon: 'iconfont  icon-tidangan',
+        active: 'Archive',
       },
       {
-        name: "绘画留言板",
-        icon: "menu-item-icon fa fa-fw fa-dashboard",
-        active: "MessageBoard",
-      },
-      {
-        name: "相册",
-        icon: "iconfont icon-xiangce",
-        active: "xc",
+        name: '绘画留言板',
+        icon: 'menu-item-icon fa fa-fw fa-dashboard',
+        active: 'MessageBoard',
       },
     ];
     const route = useRoute();
@@ -165,12 +162,9 @@ export default defineComponent({
       route,
       loading,
       data,
-      
-
     };
-  },components:{
- 
-  }
+  },
+  components: {},
 });
 </script>
 <style>
@@ -243,7 +237,7 @@ export default defineComponent({
 }
 
 .menu li.active a:after {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 50%;
   margin-top: -3px;

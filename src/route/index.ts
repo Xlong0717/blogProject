@@ -33,7 +33,12 @@ const routes: Array<RouteRecordRaw> = [
         path:'TagsDetail',
         name:'TagsDetail',
         component: () => import('@/views/Tags/tagsDetail.vue'),
-      }
+      },
+      {
+        path:'PhoneImg',
+        name:'PhoneImg',
+        component: () => import('@/views/photoImg/index.vue'),
+      },
     ],
   },
   {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-viewer>
     <el-card  class="box-card">
       <loadingVue :loading="loading" ></loadingVue>
       <v-md-preview v-highlight  left-toolbar="undo redo | customToolbar"  :default-fullscreen="true" :default-show-toc="true"   :text="str"  ></v-md-preview>

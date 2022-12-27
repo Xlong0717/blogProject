@@ -109,6 +109,10 @@ VMdPreview.use(createCopyCodePlugin());
 
 
 
+import 'viewerjs/dist/viewer.css'
+
+import Viewer from 'v-viewer'
+
 
 
 
@@ -116,9 +120,15 @@ VMdPreview.use(createCopyCodePlugin());
 
 const app = createApp(App)
 
+
 app.use(Particles);
 // app.use(VMdPreview)
 
+app.use(Viewer, {
+  defaultOptions: {
+    // 自定义默认配置
+  }
+})
 app.use(VMdPreview);
 app.use(ElementPlus);
 app.use(routes) ;
