@@ -39,6 +39,11 @@ const routes: Array<RouteRecordRaw> = [
         name:'PhoneImg',
         component: () => import('@/views/photoImg/index.vue'),
       },
+      {
+        path:'Archive',
+        name:'Archive',
+        component: () => import('@/views/Archive/index.vue'),
+      },
     ],
   },
   {

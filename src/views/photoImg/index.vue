@@ -27,20 +27,21 @@
       <div class="btn_box" v-if="!loading">
         <div class="left_btn"><div>相册</div></div>
       </div>
-      <div v-if="!loading" >
-        <div class="img_box" v-for="(item,index) in imgArr"   :key="index" >
-        <div class="imgtitle_box">
-          <div class="title_year"><h1>{{item.time.substring(0,4)}}年</h1></div>
-          <div class="title_month">{{item.time.substring(4,5)}}月</div>
-        </div>
-        <div class="img_list"  v-viewer >
-          <div  class="children" v-for="childern in item.data " :key="childern">  <img
-            :src="childern"
-          /></div>
+      <div v-if="!loading">
+        <div class="img_box" v-for="(item, index) in imgArr" :key="index">
+          <div class="imgtitle_box">
+            <div class="title_year">
+              <h1>{{ item.time.substring(0, 4) }}年</h1>
+            </div>
+            <div class="title_month">{{ item.time.substring(4, 5) }}月</div>
+          </div>
+          <div class="img_list" v-viewer>
+            <div class="children" v-for="childern in item.data" :key="childern">
+              <img :src="childern" />
+            </div>
+          </div>
         </div>
       </div>
-      </div>
-      
     </el-card>
   </div>
 </template>
@@ -58,42 +59,48 @@ let timeData = ref({
   start_time: '',
 });
 
-let imgArr = ref([{ year: '', month: '', img_url: '' ,time:'',data:[]}]);
+let imgArr = ref([{ year: '', month: '', img_url: '', time: '', data: [] }]);
 
 const imgDetail = async () => {
   let res1 = await imgData();
   console.log(res1, 'res');
   timeData.value = res1.data;
-  let starNum = 0
+
   imgList({}).then((res) => {
     if (res.code == 200) {
-      loading.value = false ;
+      loading.value = false;
       imgArr.value = res.data;
-      let resImg = imgArr.value.reduce((acc: any, cur: any,indexs,arrs:any) => {
-        let obj = {
-          time: `${cur.year}${cur.month}`,
-          url: cur.img_url,
-          data: [cur.img_url],
-        };
-        acc.push(obj);
-        acc.forEach((item:any,index:number,arr:any)=>{
-          if( arr[0].time === item.time ){
-            if(index!==0){
-              
-              arr[0].data.push(arr[index].url);
-              acc.splice(index,1)
-
+      let resImg = imgArr.value.reduce(
+        (acc: any, cur: any, indexs, arrs: any) => {
+          let obj = {
+            time: `${cur.year}${cur.month}`,
+            url: cur.img_url,
+            data: [cur.img_url],
+          };
+          acc.push(obj);
+          acc.forEach((item: any, index: number, arr: any) => {
+            if (arr[0].time === item.time) {
+              if (index !== 0) {
+                arr[0].data.push(arr[index].url);
+                acc.splice(index, 1);
+              }
             }
+          });
+          return acc;
+        },
+        []
+      );
+        // 排序算法
+      for (let i = 0; i < resImg.length; i++) {
+        for (let y = i; y > 0; y--) {
+          if (resImg[y].time > resImg[y - 1].time) {
+            [resImg[y - 1], resImg[y]] = [resImg[y], resImg[y - 1]];
           }
-        })
-        return acc;
-      }, []);
-      imgArr.value =resImg;
-      console.log(  imgArr.value,'  imgArr.value')
+        }
+      }
+      imgArr.value = resImg;
     }
-
   });
-
 };
 
 const imgData = () => {
@@ -171,19 +178,18 @@ onMounted(() => {
         cursor: pointer;
         display: flex;
         flex-wrap: wrap;
-        .children{
+        .children {
           margin-left: 20px;
           img {
-          width: 140px;
-          height: 140px;
-          box-sizing: border-box;
-          margin: auto;
-          padding: 3px;
-          border: 1px solid #ddd;
-          margin:0;
+            width: 140px;
+            height: 140px;
+            box-sizing: border-box;
+            margin: auto;
+            padding: 3px;
+            border: 1px solid #ddd;
+            margin: 0;
+          }
         }
-        }
-     
       }
     }
   }
