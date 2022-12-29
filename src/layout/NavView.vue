@@ -135,7 +135,7 @@ export default defineComponent({
         icon: 'iconfont icon-xiangce',
         active: 'PhoneImg',
       },
-      { name: '分类', icon: 'iconfont icon-yingyongzhongxin', active: 'Th' },
+      // { name: '分类', icon: 'iconfont icon-yingyongzhongxin', active: 'Th' },
 
       {
         name: '归档',

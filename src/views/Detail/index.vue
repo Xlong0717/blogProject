@@ -17,6 +17,7 @@ const route = useRoute () ;
 let str  = ref('');
 let loading = ref(true);
 onMounted(()=>{
+  console.log(route.query.id,'route.query.id111111111')
   articleDetail({id:route.query.id}).then((res)=>{
         console.log(res,'res')
             str.value = res.data.container;

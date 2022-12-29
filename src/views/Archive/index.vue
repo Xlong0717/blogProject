@@ -1,161 +1,144 @@
 <template>
   <div class="app">
     <el-card class="box-card">
-    
-      <div class="time-line">
+      <loadingVue :loading="loading"></loadingVue>
+      <div class="box-card"  v-if="!loading">
+        <div class="archive-desc">嗯..! 目前共计 {{  count }} 篇日志。 继续努力。</div>
+        <el-divider></el-divider>
+        <div
+          v-for="(item, index) in yearArchive"
+          :key="index"
+          style="margin-top: 20px"
+        >
+          <h3>{{ item.year }}</h3>
+          <ul class="th-wrap">
+            <li class="th-item" v-for="(children,len) in item.data"  :key="len">
+              <a @click="pathDetail(children)">
+                <span class="category-list-count">
+                  <!-- {{ item.createDate }} -->
+                </span>
+               <span style="font-size:14px;color:#bbb">{{ getNewDay(children.end_time) }}</span>  {{ children.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="time-line" >
         <div class="time-line-item">
-        <!-- <div class="time-line-item-time">2014-07-02</div> -->
         <div class="time-line-item-wrapper1">
         <div class="header_title">目前共计 9 篇日志。 继续努力。</div>  
         </div>
     </div>
-    <div class="time-line-item">
-        <!-- <div class="time-line-item-time">2014-07-02</div> -->
+    <div class="time-line-item"   v-for="(item,index) in  yearArchive" :key="index">
         <div class="time-line-item-wrapper">
-            aaaaaaaaaaaaaaaaaaaaaaa
+          {{ item.year }}
+          <div class="children" v-for="(children,len) in  item.data" :key="len">
+            {{ children.title }}</div>
         </div>
-    </div>
-    <div class="time-line-item">
-        <!-- <div class="time-line-item-time">2014-07-02</div> -->
-        <div class="time-line-item-wrapper">
-            bbbbbbbbbbbbbbbbbbbbbbb
+        
 
-        </div>
-    </div>
-    <div class="time-line-item">
-        <!-- <div class="time-line-item-time">2014-07-02</div> -->
-        <div class="time-line-item-wrapper">
-           ccccccccccccccccccccccccc
-        </div>
     </div>
 
-</div>
 
+
+</div> -->
     </el-card>
-
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { onMounted,ref } from 'vue';
-import {getListArticle} from '@/api/home/index'
+import { onMounted, ref } from 'vue';
+import { getListArticle } from '@/api/home/index';
+import { useRoute,useRouter } from 'vue-router';
+import {getNewDay} from '@/utils/date'
+import loadingVue from '@/components/loading.vue';
 
+let loading = ref(true);
+  const route = useRoute();
+  const router = useRouter()
 
-onMounted(()=>{
-  getListArticle({}).then((res)=>{
-    console.log(res,'res')
-  })
+  let count = ref(0) ;
 
+let yearArchive = ref([{year:'',data:[{end_time:'',title:''}]}]);
+
+const yearSet = () => {
+  getListArticle({}).then((res) => {
+    if (res.code == 200) {
+      loading.value =false ;
+      let resArr: any = [];
+      let yearArr: any = [];
+      count.value = res.data.length;
+      // 循环处理拿出年份
+      res.data.forEach((item: any, index: number) => {
+        resArr.push(item.year);
+      });
+      // 将重复年份去重
+      yearArr = [...new Set(resArr)];
+      // 从大到小排序之后在反转
+      yearArr.sort();
+      yearArr.reverse();
+      let resa = yearArr.reduce((acc: any, cur: any, curIndex: number) => {
+        // 拿到年份 和children数组
+        let obj = {
+          year: yearArr[curIndex],
+          data: [],
+        };
+        acc.push(obj);
+        res.data.forEach((item: any, index: number) => {
+          // 判断返回的年份 是否 和我目前数据的年份是否相同 一样的话就丢进去
+          if (item.year === acc[curIndex].year) {
+            acc[curIndex].data.push(item);
+          }
+        });
+        return acc;
+      }, []);
+      yearArchive.value = resa;
+      console.log(resa, 'resaaa');
+    }
+  });
+};
+
+// children跳转
+const pathDetail = ((item:any)=>{
+    console.log(item.id,'any')
+  router.push({path:'/Detail',query:{id:item.id}})
 })
 
-
+onMounted(() => {
+  yearSet();
+});
 </script>
 
-
-
 <style lang="scss" scoped>
-.app{
+.app {
   width: 100%;
   height: 100%;
-  .header_title{
-    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  .archive-desc {
+    margin-bottom: 20px;
+    padding-top: 20px;
+  }
+  .th-wrap {
+    padding: 0 40px;
+  }
+  .th-wrap li {
+    list-style: circle;
+    cursor: pointer;
+    opacity: 0.75;
+    margin-top: 20px;
+    a {
+      color: #555;
+      text-decoration: none;
+    }
+  }
+  .th-item:hover {
+    opacity: 1;
+  }
+  .header_title {
+    font-family: 'Lato', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     font-size: 14px;
     color: #555;
   }
-
-  .time-line {
-            padding: 30px;
-        }
-
-        .time-line .time-line-item {
-            display: flex;
-            margin-left: 40px;
-        }
-
-        .time-line .time-line-item .time-line-item-time {
-            padding-right: 8px;
-            font-size: 14px;
-        }
-
-        .time-line .time-line-item .time-line-item-wrapper {
-            position: relative;
-            padding-left: 20px;
-            // line-height: 100%;
-            line-height: 7px;
-            padding-bottom: 8px;
-            flex: 1;
-            height: 100px;
-        }
-
-        .time-line .time-line-item .time-line-item-wrapper1 {
-            position: relative;
-            padding-left: 20px;
-            line-height: 100%;
-            padding-bottom: 8px;
-            flex: 1;
-            height: 60px;
-        }
-
-        .time-line .time-line-item .time-line-item-wrapper::before {
-            content: '';
-            position: absolute;
-            left: 3px;
-            top: 0;
-            width: 8px;
-            height: 8px;
-            background-color: #AAAAAA;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-
-
-        .time-line .time-line-item .time-line-item-wrapper1::before {
-            content: '';
-            position: absolute;
-            left: 1px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            background-color: #AAAAAA;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .time-line .time-line-item .time-line-item-wrapper::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background-color: #F5F5F5;
-            width: 4px;
-        }
-
-        .time-line .time-line-item .time-line-item-wrapper1::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background-color: #F5F5F5;
-            width: 4px;
-        }
-
-        .time-line .time-line-item:last-child .time-line-item-wrapper::after {
-            display: none;
-        }
-
-
-        .time-line .time-line-item:last-child .time-line-item-wrapper1::after {
-            display: none;
-        }
-
-  
 }
-
-
 </style>

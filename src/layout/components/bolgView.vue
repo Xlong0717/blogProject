@@ -236,7 +236,12 @@ let routerList: NavList[] = [
   },
 
   { name: '标签', icon: 'iconfont icon-24gf-tags3', active: 'Tags' },
-  { name: '分类', icon: 'iconfont icon-yingyongzhongxin', active: 'Th' },
+  {
+    name: '相册',
+    icon: 'iconfont icon-xiangce',
+    active: 'PhoneImg',
+  },
+  // { name: '分类', icon: 'iconfont icon-yingyongzhongxin', active: 'Th' },
   {
     name: '归档',
     icon: 'iconfont  icon-tidangan',
@@ -247,11 +252,7 @@ let routerList: NavList[] = [
     icon: 'menu-item-icon fa fa-fw fa-dashboard',
     active: 'MessageBoard',
   },
-  {
-    name: '相册',
-    icon: 'iconfont icon-xiangce',
-    active: 'PhoneImg',
-  },
+  
 ];
 
 let bannerFlag = ref(false);
