@@ -78,18 +78,31 @@ const imgDetail = async () => {
             data: [cur.img_url],
           };
           acc.push(obj);
-          acc.forEach((item: any, index: number, arr: any) => {
-            if (arr[0].time === item.time) {
-              if (index !== 0) {
-                arr[0].data.push(arr[index].url);
-                acc.splice(index, 1);
-              }
+          // acc.forEach((item: any, index: number, arr: any) => {
+          //   // console.log(acc,'acc')
+          //   if (arr[0].time === item.time) {
+          //     console.log(item,'itemmm')
+          //     if (index !== 0) {
+          //       arr[0].data.push(arr[index].url);
+          //       acc.splice(index, 1);
+          //     }
+          //   }
+          // });
+          for (let i = 0 ;i <=acc.length;i++){
+            for(let j = i+1 ;j<acc.length;j++){
+                if(acc[i].time == acc[j].time){
+                    acc[i].data.push(acc[j].url)
+                    acc.splice(j,1)
+                }
             }
-          });
+          }
+
           return acc;
+          
         },
         []
       );
+      console.log(resImg,'resImgresImg')
         // 排序算法
       for (let i = 0; i < resImg.length; i++) {
         for (let y = i; y > 0; y--) {
