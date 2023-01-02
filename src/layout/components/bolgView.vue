@@ -5,6 +5,7 @@
   </div> -->
 
   <div class="app">
+    <!-- <serchVue class="serchVue"></serchVue> -->
     <div class="headers">
       <div class="header_title"><div>XLong的博客</div></div>
       <div class="icon_box" @click="bannerFlag = !bannerFlag">
@@ -31,6 +32,7 @@
       </div>
     </transition>
     <!-- <Particles></Particles> -->
+ 
     <div class="bkpro-login-canvas">
       <Particles
         id="tsparticles"
@@ -51,6 +53,7 @@
           <el-container>
             <el-main>
               <router-view />
+        
             </el-main>
             <el-footer>
               <!-- <p>
@@ -94,6 +97,7 @@
 import NavView from '@/layout/NavView.vue';
 import HeaderView from './header.vue';
 // import live2d from 'vue-live2d';
+import serchVue from '@/components/serch.vue';
 
 import { loadFull } from 'tsparticles';
 import { useRoute, useRouter } from 'vue-router';
@@ -259,6 +263,11 @@ let bannerFlag = ref(false);
 </script>
 
 <style lang="scss" scoped>
+.serchVue{
+  // position: relative;
+  // z-index: 2;
+
+}
 .app{
   width: 100%;
   height: 100%;

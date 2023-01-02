@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4521257",
+      "name": "搜索",
+      "font_class": "seach",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "33607094",
+      "name": "搜索-copy",
+      "font_class": "seach-copy",
+      "unicode": "eb97",
+      "unicode_decimal": 60311
+    },
+    {
       "icon_id": "630126",
       "name": "眼睛",
       "font_class": "yanjing",

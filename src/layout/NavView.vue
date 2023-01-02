@@ -12,8 +12,9 @@
               :class="{ active: item.active == route.name }"
               v-for="(item, index) in routerList"
               :key="index"
+              @click="goPath(item)"
             >
-              <a :href="'#' + item.active">
+              <a >
                 <i class="post-meta-item-icon" :class="item.icon"></i
                 >{{ item.name }} {{ item.active }}
               </a>
@@ -108,10 +109,14 @@
       </el-affix>
     </transition>
   </div>
+
 </template>
 <script lang="ts">
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
+
+
+
 
 // import { GetPageTable } from "@/api";
 interface NavList {
@@ -143,15 +148,29 @@ export default defineComponent({
         active: 'Archive',
       },
       {
-        name: '绘画留言板',
-        icon: 'menu-item-icon fa fa-fw fa-dashboard',
-        active: 'MessageBoard',
-      },
+        name:"搜索",
+        icon :'iconfont  icon-seach-copy',
+        active:''
+      }
+      // {
+      //   name: '绘画留言板',
+      //   icon: 'menu-item-icon fa fa-fw fa-dashboard',
+      //   active: 'MessageBoard',
+      // },
     ];
     const route = useRoute();
+    const router = useRouter();
     const routerList = ref<NavList[]>(navList);
     let loading = ref(true);
     let data = ref();
+
+    const  goPath = (item:NavList) =>{
+          if(!item.active){
+            console.log('不存在')
+            return
+          }
+        router.push(`/${item.active}`)
+    }
     // GetPageTable().then(res => {
     //   data.value = res.data
     // }).finally(() => {
@@ -162,9 +181,11 @@ export default defineComponent({
       route,
       loading,
       data,
+      goPath
     };
   },
-  components: {},
+  components: {
+  },
 });
 </script>
 <style>
@@ -208,6 +229,7 @@ export default defineComponent({
 .menu {
   padding: 20px 0;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .menu li {

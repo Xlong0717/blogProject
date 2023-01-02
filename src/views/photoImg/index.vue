@@ -192,10 +192,11 @@ onMounted(() => {
         display: flex;
         flex-wrap: wrap;
         .children {
-          margin-left: 20px;
+          margin-left: 40px;
           img {
-            width: 140px;
-            height: 140px;
+            width: 200px;
+            // width:25%;
+            height: 200px;
             box-sizing: border-box;
             margin: auto;
             padding: 3px;
