@@ -5,7 +5,8 @@
   </div> -->
 
   <div class="app">
-    <!-- <serchVue class="serchVue"></serchVue> -->
+
+    <serchVue></serchVue>
     <div class="headers">
       <div class="header_title"><div>XLong的博客</div></div>
       <div class="icon_box" @click="bannerFlag = !bannerFlag">
@@ -22,7 +23,7 @@
               v-for="(item, index) in routerList"
               :key="index"
             >
-              <a :href="'#' + item.active">
+              <a  @click="pathRoute(item)">
                 <i class="post-meta-item-icon" :class="item.icon"></i
                 >{{ item.name }} {{ item.active }}
               </a>
@@ -53,7 +54,7 @@
           <el-container>
             <el-main>
               <router-view />
-        
+            
             </el-main>
             <el-footer>
               <!-- <p>
@@ -97,7 +98,8 @@
 import NavView from '@/layout/NavView.vue';
 import HeaderView from './header.vue';
 // import live2d from 'vue-live2d';
-import serchVue from '@/components/serch.vue';
+import serchVue from '@/components/serch.vue'
+import {useDialogs} from '@/store/dialog'
 
 import { loadFull } from 'tsparticles';
 import { useRoute, useRouter } from 'vue-router';
@@ -109,6 +111,18 @@ const router = useRouter();
 const particlesInit = async (engine: any) => {
   await loadFull(engine);
 };
+
+
+const dialogFlag = ref<boolean>(true);
+
+const  cli = (()=>{
+    console.log(1)
+    dialogFlag.value = false ; 
+})
+
+const  cli1 = (()=>{
+    console.log(2)
+})
 
 const particlesLoaded = async (container: any) => {
   console.log('Particles container loaded', container);
@@ -252,6 +266,12 @@ let routerList: NavList[] = [
     active: 'Archive',
   },
   {
+        name:"搜索",
+        icon :'iconfont  icon-seach-copy',
+        active:''
+      },
+
+  {
     name: '绘画留言板',
     icon: 'menu-item-icon fa fa-fw fa-dashboard',
     active: 'MessageBoard',
@@ -259,10 +279,24 @@ let routerList: NavList[] = [
   
 ];
 
+const pathRoute =(item:any)=>{
+  if(!item.active){
+            const dialogStore = useDialogs();
+            dialogStore.SETFLAG(true);
+            return
+          }
+        router.push(`/${item.active}`)
+}
+
+
+
 let bannerFlag = ref(false);
 </script>
 
 <style lang="scss" scoped>
+.router_serch{
+
+}
 .serchVue{
   // position: relative;
   // z-index: 2;
@@ -271,6 +305,24 @@ let bannerFlag = ref(false);
 .app{
   width: 100%;
   height: 100%;
+  .dialogs{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .dialog_center{
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      position: relative;
+      z-index: 10000;
+    }
+  }
 }
 .rights {
   position: fixed;
@@ -401,6 +453,7 @@ let bannerFlag = ref(false);
   padding: 0;
   overflow: hidden;
   min-height: auto;
+  // position: relative;
 }
 
 // @media screen and (min-width: 0px) and (max-width: 820px){

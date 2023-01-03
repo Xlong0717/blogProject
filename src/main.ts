@@ -106,6 +106,10 @@ VMdPreview.use(createCopyCodePlugin());
 
 
 
+// 引入pinia
+import { createPinia, Pinia } from 'pinia';
+const pinia: Pinia = createPinia()
+
 
 
 
@@ -120,6 +124,7 @@ import Viewer from 'v-viewer'
 
 const app = createApp(App)
 
+app.use(pinia);
 
 app.use(Particles);
 // app.use(VMdPreview)

@@ -12,7 +12,7 @@
 
 
 <script setup lang="ts">
-import home from '@/views/Home/index.vue'
+// import home from '@/views/Home/index.vue'
 import { onMounted } from 'vue';
 
 

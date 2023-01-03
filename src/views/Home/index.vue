@@ -159,6 +159,11 @@ onMounted(() => {
         .title_text {
           color: #666666;
           margin-left: 15px;
+          height: 40px;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
         }
       }
       .follter_btn {

@@ -116,6 +116,11 @@ import { useRoute,useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
 
 
+import {useDialogs} from '@/store/dialog'
+
+
+
+
 
 
 // import { GetPageTable } from "@/api";
@@ -166,7 +171,9 @@ export default defineComponent({
 
     const  goPath = (item:NavList) =>{
           if(!item.active){
-            console.log('不存在')
+            // console.log('不存在')
+            const dialogStore = useDialogs();
+            dialogStore.SETFLAG(true);
             return
           }
         router.push(`/${item.active}`)
