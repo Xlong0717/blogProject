@@ -3,10 +3,12 @@
     <loadingVue :loading="loading"></loadingVue>
     <el-card class="box-card" shadow="always" v-if="!loading">
       <div class="title"><h2>文章标签</h2></div>
-      <div class="header_msg"><div>目前共计{{ ArchilveType.length }} 个标签</div></div>
+      <div class="header_msg">
+        <div>目前共计{{ ArchilveType.length }} 个标签</div>
+      </div>
       <div class="ul_list">
-        <ul v-for="(item,index) of ArchilveType" :key="index">
-         <li @click="pathDetail(item)">{{ item.type_title }}</li>
+        <ul v-for="(item, index) of ArchilveType" :key="index">
+          <li @click="pathDetail(item)">{{ item.type_title }}</li>
         </ul>
       </div>
     </el-card>
@@ -17,7 +19,7 @@
 import { ref, onMounted } from 'vue';
 import { artilsTypes } from '@/api/home/index';
 import loadingVue from '@/components/loading.vue';
-import { useRoute,useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
@@ -29,36 +31,45 @@ interface Archilve {
   type_title: string;
 }
 
+let loading = ref(true);
 
-let loading = ref(true)
-
-let ArchilveType = ref([{
-  end_time: '',
-  start_time: '',
-  type: 1,
-  type_title: '',
-
-}]);
+let ArchilveType = ref([
+  {
+    end_time: '',
+    start_time: '',
+    type: 1,
+    type_title: '',
+  },
+]);
 const selArchiveType = () => {
   artilsTypes({}).then((res) => {
     console.log(res, 'res');
-    if(res.code == 200 ){
-      ArchilveType.value = res.data ;
+    if (res.code == 200) {
+      ArchilveType.value = res.data;
+      let resArr = res.data;
+
+      for (let i = 0; i < resArr.length; i++) {
+        for (let j = i + 1; j < resArr.length; j++) {
+          console.log(resArr[i], resArr[j], '999');
+          if (resArr[i].type_title == resArr[j].type_title) {
+            resArr.splice(i, 1);
+          }
+        }
+      }
+
       loading.value = false;
     }
   });
 };
 
-
 // 跳转到分类详情
 
-const pathDetail = ((item:Archilve)=>{
-  router.push({path:'/TagsDetail',query:{type:item.type}})
-
-})
-onMounted(()=>{
-  selArchiveType()
-})
+const pathDetail = (item: Archilve) => {
+  router.push({ path: '/TagsDetail', query: { type: item.type } });
+};
+onMounted(() => {
+  selArchiveType();
+});
 </script>
 
 <style lang="scss" scoped>

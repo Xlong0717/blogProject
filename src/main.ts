@@ -111,6 +111,12 @@ import { createPinia, Pinia } from 'pinia';
 const pinia: Pinia = createPinia()
 
 
+// 引入图片懒加载指令
+
+import lazy from '@/diretives/lazy'
+
+
+
 
 
 import 'viewerjs/dist/viewer.css'
@@ -123,6 +129,8 @@ import Viewer from 'v-viewer'
 
 
 const app = createApp(App)
+
+app.directive('lazy',lazy)
 
 app.use(pinia);
 

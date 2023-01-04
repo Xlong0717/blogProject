@@ -37,7 +37,8 @@
           </div>
           <div class="img_list" v-viewer>
             <div class="children" v-for="childern in item.data" :key="childern">
-              <img :src="childern" />
+              <img :src="childern" v-lazy />
+              <!-- <el-image  class="img"  :src="childern" lazy></el-image>  -->
             </div>
           </div>
         </div>
@@ -193,6 +194,16 @@ onMounted(() => {
         flex-wrap: wrap;
         .children {
           margin-left: 40px;
+          .img{
+            width: 200px;
+            // width:25%;
+            height: 200px;
+            box-sizing: border-box;
+            margin: auto;
+            padding: 3px;
+            border: 1px solid #ddd;
+            margin: 0;
+          }
           img {
             width: 200px;
             // width:25%;

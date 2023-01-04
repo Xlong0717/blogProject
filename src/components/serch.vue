@@ -35,8 +35,8 @@
           </ul> -->
         <ul v-for="(item, index) in serchArr" :key="index">
           <li @click="pathDetail(item)">
-            <a class="header_title"> {{ item.title }}</a>
-            <div class="detail">{{ item.msg }}</div>
+            <a class="header_title" v-html="heightLight(item.title,serchVal)">   </a>
+            <div class="detail"  v-html="heightLight(item.msg,serchVal)" ></div>
           </li>
         </ul>
       </div>
@@ -68,11 +68,22 @@ interface Ilist {
   type_title:number
 }
 
+let val = ''
+
+// 文本高亮
+ const heightLight = (str:string, key:string) => {
+  const reg = new RegExp(key, 'ig')
+  return str.replace(reg, (val) => {
+    return `<span style="color:red">${val}</span>`
+  })
+}
+
 
 // 输入框绑定值
 const serchVal = ref<string>('');
 
-let serchArr = ref([]);
+let serchArr = ref([{title:'',msg:''}]);
+serchArr.value =[]
 
 let iconFlag = ref<boolean>(false);
 
