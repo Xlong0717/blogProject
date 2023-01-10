@@ -49,6 +49,10 @@ onMounted(()=>{
   artList(route.query.type as any).then((res)=>{
         if(res.code == 200 ){
           typeList.value = res.data ; 
+          typeList.value.sort((a,b)=>{
+                return   Number(b.end_time) - Number(a.end_time) ;
+          })
+
           text.value = typeList.value[0].title
           loading.value = false;
         }

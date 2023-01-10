@@ -43,16 +43,14 @@ let ArchilveType = ref([
 ]);
 const selArchiveType = () => {
   artilsTypes({}).then((res) => {
-    console.log(res, 'res');
     if (res.code == 200) {
       ArchilveType.value = res.data;
       let resArr = res.data;
 
       for (let i = 0; i < resArr.length; i++) {
         for (let j = i + 1; j < resArr.length; j++) {
-          console.log(resArr[i], resArr[j], '999');
           if (resArr[i].type_title == resArr[j].type_title) {
-            resArr.splice(i, 1);
+            resArr.splice(j, 1);
           }
         }
       }
