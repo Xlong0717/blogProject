@@ -116,6 +116,10 @@ const pinia: Pinia = createPinia()
 import lazy from '@/diretives/lazy'
 
 
+// 字节icon
+import {install} from '@icon-park/vue-next/es/all';
+import '@icon-park/vue-next/styles/index.css';
+
 
 
 
@@ -132,6 +136,7 @@ const app = createApp(App)
 
 app.directive('lazy',lazy)
 
+app.use(install)
 app.use(pinia);
 
 app.use(Particles);

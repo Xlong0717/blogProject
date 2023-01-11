@@ -37,3 +37,8 @@ export const imgCounter = (((data:any)=>{
 export const imgList =((data:any)=>{
     return request.post('/api/imgsList',{});
 })
+
+// 查询所有歌曲
+export const videoList = (()=>{
+  return request.post('/api/videoList',{});
+})

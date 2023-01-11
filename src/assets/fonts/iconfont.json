@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5013",
+      "name": "列表",
+      "font_class": "liebiao",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "33745829",
+      "name": "列表-copy",
+      "font_class": "liebiao-copy",
+      "unicode": "eb9d",
+      "unicode_decimal": 60317
+    },
+    {
+      "icon_id": "1166059",
+      "name": "箭头左",
+      "font_class": "iconfontzhizuobiaozhun023126",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "2674928",
+      "name": "箭头 右",
+      "font_class": "jiantouyou",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "33745591",
+      "name": "箭头左-copy",
+      "font_class": "iconfontzhizuobiaozhun023126-copy",
+      "unicode": "eb9a",
+      "unicode_decimal": 60314
+    },
+    {
+      "icon_id": "33745593",
+      "name": "箭头左-copy",
+      "font_class": "iconfontzhizuobiaozhun023126-copy1",
+      "unicode": "eb9b",
+      "unicode_decimal": 60315
+    },
+    {
+      "icon_id": "33745594",
+      "name": "箭头 右-copy",
+      "font_class": "jiantouyou-copy",
+      "unicode": "eb9c",
+      "unicode_decimal": 60316
+    },
+    {
       "icon_id": "5950866",
       "name": "哭脸",
       "font_class": "kulian",

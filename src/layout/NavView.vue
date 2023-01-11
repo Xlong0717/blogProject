@@ -1,5 +1,6 @@
 <template>
   <div class="nav-wrap">
+    <music></music>
     <transition name="slide-fade" :appear="true">
       <div class="header-inner">
         <div class="site-brand-wrapper text-none">
@@ -114,6 +115,7 @@
 <script lang="ts">
 import { useRoute,useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
+import music from '@/components/music.vue'
 
 
 import {useDialogs} from '@/store/dialog'
@@ -192,6 +194,7 @@ export default defineComponent({
     };
   },
   components: {
+    music
   },
 });
 </script>
