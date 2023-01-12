@@ -1,25 +1,23 @@
 <template>
   <!--音乐播放器-->
-  <div  :class="{'right-button1':!offsetThreshold,'right-button':offsetThreshold}"  @click="iconDisplay">
+  <div class="box">
+  <div :class="{ 'right-button1': !offsetThreshold, 'right-button': offsetThreshold }" @click="iconDisplay">
     <div>
       <i class="iconfont  icon-jiantouyou"></i>
     </div>
   </div>
-  <div
-    class="music-container"
-    :class="{ 'music-active-switch': offsetThreshold }"
-  >
+  <div class="music-container" :class="{ 'music-active-switch': offsetThreshold }">
 
-  <div  class="right_set" @click="listFlag = !listFlag">
-    <i class="iconfont icon-liebiao-copy"></i>
-  </div>
+    <div class="right_set" @click="listFlag = !listFlag">
+      <i class="iconfont icon-liebiao-copy"></i>
+    </div>
 
-  <transition-group name="slide-fade">
-    <div class="radio_list" v-if="listFlag">
-        <div class="item_box" v-for="(item,index) in videoArr" :key="item.id"  @click="stopMusic(item,index)">
-          <div class="items">
+    <transition-group name="slide-fade">
+      <div class="radio_list" v-if="listFlag">
+        <div class="item_box" v-for="(item, index) in videoArr" :key="item.id" @click="stopMusic(item, index)">
+          <div class="items" :style="item.flag? 'background-color:#E9E9E9;' :  '' ">
             <div class="lefts">
-              <div class="num">{{ index + 1  }}</div>
+              <div class="num">{{ index + 1 }}</div>
               <div>{{ item.img_text }}</div>
             </div>
             <div class="rights">
@@ -27,131 +25,73 @@
             </div>
           </div>
         </div>
-    </div>
+      </div>
 
-  </transition-group>
- 
+    </transition-group>
 
- 
-    <div class="music-disk">
+
+
+    <div class="music-disk" >
       <!--唱片图片-->
-      <img
-        class="music-disk-picture"
-        :class="{ 'music-disk-playing-style': playState }"
-        src="@/assets/images/southeast.jpg"
-        alt=""
-      />
+      <img class="music-disk-picture"  :class="{ 'music-disk-playing-style': playState }"
+        :src="imgurl" alt="" />
     </div>
 
 
 
     <!--进度条-->
     <div class="music-slider">
-      <el-slider
-        v-model="playTime"
-        :format-tooltip="tooltipFormat"
-        size="small"
-        :max="sliderLength"
-        @change="changePlayTime"
-      />
+      <el-slider v-model="playTime" :format-tooltip="tooltipFormat" size="small" :max="sliderLength"
+        @change="changePlayTime" />
     </div>
 
     <!--按钮组-->
     <div class="button-group">
       <!--上一曲 按钮-->
       <button class="play-button" @click="lastButtonClick" title="上一首">
-        <icon-go-start
-          theme="outline"
-          size="23"
-          fill="#939393"
-          :strokeWidth="3"
-          strokeLinejoin="miter"
-          strokeLinecap="butt"
-        />
+        <icon-go-start theme="outline" size="23" fill="#939393" :strokeWidth="3" strokeLinejoin="miter"
+          strokeLinecap="butt" />
       </button>
       <!--播放 按钮-->
-      <button class="play-button" @click="playButtonClick" >
-        <icon-play-one
-          v-if="!playState"
-          theme="outline"
-          size="23"
-          fill="#939393"
-          :strokeWidth="3"
-          strokeLinejoin="miter"
-          strokeLinecap="butt"
-          title="播放"
-        />
-        <icon-pause
-          v-if="playState"
-          theme="outline"
-          size="23"
-          fill="#939393"
-          :strokeWidth="3"
-          strokeLinejoin="miter"
-          strokeLinecap="butt"
-          title="暂停"
-        />
+      <button class="play-button" @click="playButtonClick">
+        <icon-play-one v-if="!playState" theme="outline" size="23" fill="#939393" :strokeWidth="3"
+          strokeLinejoin="miter" strokeLinecap="butt" title="播放" />
+        <icon-pause v-if="playState" theme="outline" size="23" fill="#939393" :strokeWidth="3" strokeLinejoin="miter"
+          strokeLinecap="butt" title="暂停" />
       </button>
       <!--下一曲 按钮-->
       <button class="play-button" @click="nextButtonClick" title="下一首">
-        <icon-go-end
-          theme="outline"
-          size="23"
-          fill="#939393"
-          :strokeWidth="3"
-          strokeLinejoin="miter"
-          strokeLinecap="butt"
-        />
+        <icon-go-end theme="outline" size="23" fill="#939393" :strokeWidth="3" strokeLinejoin="miter"
+          strokeLinecap="butt" />
       </button>
       <!--音量按钮-->
       <div class="voice-container">
         <button class="voice-button" @click="voiceButtonClick">
-          <icon-volume-notice
-            v-if="!voiceMute"
-            theme="outline"
-            size="23"
-            fill="#939393"
-            :strokeWidth="3"
-            strokeLinejoin="miter"
-            strokeLinecap="butt"
-          />
-          <icon-volume-mute
-            v-if="voiceMute"
-            theme="outline"
-            size="23"
-            fill="#939393"
-            :strokeWidth="3"
-            strokeLinejoin="miter"
-            strokeLinecap="butt"
-          />
+          <icon-volume-notice v-if="!voiceMute" theme="outline" size="23" fill="#939393" :strokeWidth="3"
+            strokeLinejoin="miter" strokeLinecap="butt" />
+          <icon-volume-mute v-if="voiceMute" theme="outline" size="23" fill="#939393" :strokeWidth="3"
+            strokeLinejoin="miter" strokeLinecap="butt" />
         </button>
+        <!-- <div class="voice-slider">
+          <el-slider v-model="voicePower" :max="1" :step="0.1" size="small" @change="changeVoicePower" />
+        </div> -->
+
         <div class="voice-slider">
-          <el-slider
-            v-model="voicePower"
-            :max="1"
-            :step="0.1"
-            size="small"
-            @change="changeVoicePower"
-          />
-        </div>
+        <el-slider v-model="voicePower" vertical  :max="100" :step="1"   height="70px" />
+      </div>
       </div>
     </div>
 
-    <audio
-      ref="musicAudio"
-      class="audio-component"
-      controls
-      preload="auto"
-      @canplay="changeDuration"
-    >
+    <audio ref="musicAudio" class="audio-component" controls preload="auto" @canplay="changeDuration">
       <source ref="musicSource" type="audio/mpeg" />
     </audio>
   </div>
+</div>
 </template>
 
 <script lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import {videoList} from '@/api/home'
+import { videoList } from '@/api/home'
 
 //这里是自己封装的axios请求，可以将这里替换成自己的请求逻辑
 // import requests from "@/api/ajax";
@@ -160,9 +100,12 @@ export default {
   name: 'index',
   setup() {
     // 歌曲数组
-    let videoArr= ref([
-      {img_text:'',singer:'',id:1,music_url:''}
+    let videoArr = ref([
+      { img_text: '', singer: '', id: 1, music_url: '',img_url:'' ,flag:false}
     ]);
+
+
+    let imgurl = ref('http://cdn.xlong.tech/southeast.jpg')
 
 
     // 列表Flag
@@ -193,7 +136,7 @@ export default {
     const voiceMute = ref(false);
 
     //音量大小
-    const voicePower = ref(0.5);
+    const voicePower = ref(100);
 
 
     // 播放器是否显示隐藏
@@ -241,28 +184,28 @@ export default {
 
     //上一曲按钮点击回调
     const lastButtonClick = () => {
-      if(musicCursor.value === 1 ){
-        musicCursor.value  =  videoArr.value.length;
-      }else{
+      if (musicCursor.value === 1) {
+        musicCursor.value = videoArr.value.length;
+      } else {
         musicCursor.value -= 1;
       }
-   
+
       changeMusic();
     };
 
     //下一曲按钮点击回调
     const nextButtonClick = () => {
-      if(musicCursor.value >=  videoArr.value.length){
-        musicCursor.value = 1 
+      if (musicCursor.value >= videoArr.value.length) {
+        musicCursor.value = 1
 
-      }else{
+      } else {
         musicCursor.value += 1;
       }
 
       changeMusic();
     };
 
-      
+
 
     //歌曲进度条文本提示
     const tooltipFormat = (val: any) => {
@@ -307,12 +250,12 @@ export default {
       }
     };
 
+
+
     //el-slider的钩子函数，用于调节音量
     const changeVoicePower = (val: any) => {
-      musicAudio.value.volume = val;
-
+      musicAudio.value.volume = val /100;
       voicePower.value = val;
-
       if (val > 0) {
         voiceMute.value = false;
       } else {
@@ -326,12 +269,12 @@ export default {
         playTime.value += 1;
         if (playTime.value >= playDuration.value) {
           //代表当前歌曲已经播放完毕，进行切歌
-            if(musicCursor.value == musicState.musicCount){
-              musicCursor.value = 1 
-            }else{
-              musicCursor.value++;
-            }
-       
+          if (musicCursor.value == musicState.musicCount) {
+            musicCursor.value = 1
+          } else {
+            musicCursor.value++;
+          }
+
           // 播放完毕进度条置0
           // playTime.value = 0 ;
           changeMusic();
@@ -340,18 +283,25 @@ export default {
     };
 
     //切歌
-    const changeMusic = (index?:number) => {
+    const changeMusic = (index?: number) => {
       // 切歌【这里的music_url是后端返回给前端的json字符串中，用于存储歌曲在线链接的属性名是：
       // music_url，所以要实现自己的请求逻辑，将这里的music_url改为自己的即可】
       // musicSource.value.src = musicState.musicArr[musicCursor.value % musicState.musicCount].music_url
-      if(index){
-        musicSource.value.src =  videoArr.value[index].music_url
-      }else{
-        musicSource.value.src =  videoArr.value[musicCursor.value - 1 ].music_url;
+      videoArr.value.forEach((item)=>{
+            item.flag = false;
+          })
+      if (index) {
+        musicSource.value.src = videoArr.value[index].music_url
+        videoArr.value[index].img_url? imgurl.value = videoArr.value[index].img_url :  imgurl.value = 'http://cdn.xlong.tech/southeast.jpg'
+        videoArr.value[index].flag = true ;
+      } else {
+        musicSource.value.src = videoArr.value[musicCursor.value - 1].music_url;
+        videoArr.value[musicCursor.value - 1].img_url? imgurl.value = videoArr.value[musicCursor.value - 1].img_url :  imgurl.value = 'http://cdn.xlong.tech/southeast.jpg'
+        videoArr.value[musicCursor.value - 1].flag = true ;
       }
-        
-      
-    
+
+
+
       // 当刷新了url之后，需要执行load方法才能播放这个音乐
       musicAudio.value.load();
 
@@ -366,13 +316,19 @@ export default {
 
     //初始化歌曲源【将这里替换成自己的请求逻辑】
     const initMusicArr = () => {
-      videoList().then((res)=>{
-          if(res.code == 200 ){
-            videoArr.value =  res.data ; 
-            musicState.musicArr =  videoArr.value;
-            musicState.musicCount =  videoArr.value.length;
-            musicUrl.value  =  videoArr.value[0];
-            }
+      videoList().then((res) => {
+        if (res.code == 200) {
+          videoArr.value = res.data;
+          musicState.musicArr = videoArr.value;
+          musicState.musicCount = videoArr.value.length;
+          musicUrl.value = videoArr.value[0];
+          videoArr.value.forEach((item)=>{
+            item.flag = false;
+          })
+          if( videoArr.value[0].img_url){
+            imgurl.value =  videoArr.value[0].img_url
+          }
+        }
       })
 
       // requests.get("/Music/QueryAllMusic").then(function (res) {
@@ -384,16 +340,28 @@ export default {
 
 
     // 点击切歌
-    const stopMusic = (item:any,index:number)=>{
-      console.log(item,index,'itemmm')
+    const stopMusic = (item: any, index: number) => {
+      console.log(item, index, 'itemmm')
       changeMusic(index);
     }
 
     // 隐藏播放器按钮
-    const iconDisplay = ()=>{
+    const iconDisplay = () => {
       // videoFlag.value = !videoFlag.value
       offsetThreshold.value = !offsetThreshold.value
     }
+
+
+      watch(voicePower,(newval)=>{
+         
+     musicAudio.value.volume = newval /100;
+      voicePower.value = newval;
+      if (newval > 0) {
+        voiceMute.value = false;
+      } else {
+        voiceMute.value = true;
+      }
+      })
 
     onMounted(() => {
       initMusicArr();
@@ -410,6 +378,7 @@ export default {
 
 
     return {
+      imgurl,
       listFlag,
       videoArr,
       musicAudio,
@@ -443,12 +412,15 @@ export default {
 };
 </script>
 
-<style scoped>
-
-.items{
+<style scoped lang="scss">
+.box{
+  position: fixed;
+  z-index: 9999;
+}
+.items {
   border-bottom: 1px solid #fff;
   height: 100%;
-  width:100%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
@@ -456,23 +428,26 @@ export default {
   color: #707778;
   cursor: pointer;
 }
-.lefts{
+
+.lefts {
   margin-left: 20px;
   display: flex;
   align-items: center
-
 }
-.num{
+
+.num {
   margin-right: 10px;
   margin-top: 4px;
 }
-.rights{
+
+.rights {
   margin-right: 20px;
   display: flex;
   align-items: center;
 }
-.items:hover{
-  background-color:#E9E9E9;
+
+.items:hover {
+  background-color: #E9E9E9;
 }
 
 .slide-fade-enter-active {
@@ -488,13 +463,15 @@ export default {
   transform: translateY(20px);
   opacity: 0;
 }
-.right_set{
+
+.right_set {
   position: absolute;
   right: 10px;
   top: 6px;
   cursor: pointer;
 }
-.radio_list{
+
+.radio_list {
   position: absolute;
   width: 280px;
   height: 170px;
@@ -503,16 +480,18 @@ export default {
   overflow: auto;
 
 }
-.item_box{
+
+.item_box {
   height: 25px;
 }
-.right-button1{
+
+.right-button1 {
 
   width: 20px;
   height: 40px;
-  background:#EAECF0;
+  background: #EAECF0;
   position: fixed;
-  left:0px ;
+  left: 0px;
   bottom: 44px;
   border-radius: 3px;
   display: flex;
@@ -521,12 +500,13 @@ export default {
   cursor: pointer;
   z-index: 999;
 }
-.right-button{
+
+.right-button {
   width: 20px;
   height: 40px;
-  background:#EAECF0;
+  background: #EAECF0;
   position: fixed;
-  left:292px ;
+  left: 310px;
   bottom: 44px;
   border-radius: 3px;
   display: flex;
@@ -535,10 +515,11 @@ export default {
   cursor: pointer;
   z-index: 999;
 }
+
 .music-container {
   position: fixed;
   justify-content: center;
-  width: 280px;
+  width: 300px;
   height: 110px;
   background-color: #EAECF0;
   border-radius: 15px;
@@ -573,6 +554,7 @@ export default {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -587,7 +569,7 @@ export default {
   margin-left: 10px;
 }
 
-.button-group > button {
+.button-group>button {
   margin-left: 10px;
 }
 
@@ -613,6 +595,7 @@ export default {
   border-radius: 50%;
   margin: 7px 0px 0px 0px;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .music-slider {
@@ -633,18 +616,27 @@ export default {
 
 .voice-container:hover {
   width: 160px;
+  .voice-slider{
+    opacity: 1;
+  }
 }
 
 .voice-slider {
-  position: relative;
-  top: 2px;
-  right: -30px;
-  width: 90px;
+    opacity: 0;
+  position: absolute;
+  // top: 0px;
+  bottom:9px;
+  right: 106px;
+  /* width: 90px; */
   height: 35px;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 10px;
   padding: 0px 15px 0px 15px;
   transition: 0.2s;
+  ::v-deep .el-slider__button{
+    height: 14px !important;
+    width: 14px !important;
+  }
 }
 
 .audio-component {

@@ -1,5 +1,6 @@
 <template>
   <div  id="app">
+    <music ></music>
     <router-view></router-view>
   </div>
 
@@ -13,6 +14,7 @@
 
 <script setup lang="ts">
 // import home from '@/views/Home/index.vue'
+import music from './components/music.vue';
 import { onMounted } from 'vue';
 
 
@@ -38,6 +40,7 @@ onMounted(()=>{
 
 
 <style scoped>
+
 
 
 #app {

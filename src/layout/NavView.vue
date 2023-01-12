@@ -1,6 +1,6 @@
 <template>
   <div class="nav-wrap">
-    <music></music>
+    <!-- <music></music> -->
     <transition name="slide-fade" :appear="true">
       <div class="header-inner">
         <div class="site-brand-wrapper text-none">
