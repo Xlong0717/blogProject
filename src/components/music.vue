@@ -633,10 +633,10 @@ export default {
   border-radius: 10px;
   padding: 0px 15px 0px 15px;
   transition: 0.2s;
-  ::v-deep .el-slider__button{
-    height: 14px !important;
-    width: 14px !important;
-  }
+  :deep(.el-slider__button) {
+      height: 14px !important;
+      width: 14px !important;
+    }
 }
 
 .audio-component {

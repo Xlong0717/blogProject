@@ -46,11 +46,11 @@ const selArchiveType = () => {
     if (res.code == 200) {
       ArchilveType.value = res.data;
       let resArr = res.data;
-
       for (let i = 0; i < resArr.length; i++) {
         for (let j = i + 1; j < resArr.length; j++) {
           if (resArr[i].type_title == resArr[j].type_title) {
             resArr.splice(j, 1);
+            j--
           }
         }
       }
