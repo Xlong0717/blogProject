@@ -39,6 +39,6 @@ export const imgList =((data:any)=>{
 })
 
 // 查询所有歌曲
-export const videoList = (()=>{
-  return request.post('/api/videoList',{});
+export const videoList = ((like?:string)=>{
+  return request.post('/api/videoList',{like});
 })
