@@ -559,7 +559,7 @@ export default {
 
 .radio_list {
   position: absolute;
-  width: 280px;
+  width: 300px;
   height: 170px;
   background-color: #eaecf0;
   bottom: 102px;
@@ -577,16 +577,17 @@ export default {
         width: 97%;
         border-radius: 8px 8px 8px 8px;
         border: 1px solid #f5f5f5;
+        height: 20px;
       }
       .icons {
         position: absolute;
-        top: 1px;
+        top: 2px;
         right: 8px;
         cursor: pointer;
       }
       .iconsclone {
         position: absolute;
-        top: 1px;
+        top: 2px;
         right: 27px;
         cursor: pointer;
       }
