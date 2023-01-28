@@ -1,6 +1,7 @@
 <template>
-  <div  id="app">
-    <music ></music>
+  <div  id="app"  >
+    <music></music>
+    <darkBlack/>
     <router-view></router-view>
   </div>
 
@@ -14,8 +15,15 @@
 
 <script setup lang="ts">
 // import home from '@/views/Home/index.vue'
+import darkBlack from './components/darkBlack.vue';
 import music from './components/music.vue';
-import { onMounted } from 'vue';
+import { useDark, useToggle } from '@vueuse/core'
+import { onMounted,ref } from 'vue';
+
+
+// const isDark = useDark()
+// const toggleDark = useToggle(isDark)
+// let blackFlag = ref<boolean>(false);
 
 
 onMounted(()=>{

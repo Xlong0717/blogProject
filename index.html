@@ -13,3 +13,12 @@
     <script type="text/javascript" src="/live2dw/lib/L2Dwidget.min.js"></script>
   </body>
 </html>
+
+
+
+<script lang="ts">
+  let dark=window.localStorage.getItem("APP_DARK");
+  if(dark){
+    document.documentElement.classList.add("dark")
+  }
+</script>

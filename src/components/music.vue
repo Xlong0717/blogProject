@@ -16,7 +16,8 @@
       </div>
 
       <transition-group name="slide-fade">
-        <div class="radio_list"
+        <div 
+        :class="{ 'radio_list': offsetThreshold, 'radio_list1': !offsetThreshold }"
              v-if="listFlag">
           <div class="serch">
             <div class="serch-box">
@@ -593,6 +594,9 @@ export default {
       }
     }
   }
+}
+.radio_list1{
+  display: none;
 }
 
 .item_box {
