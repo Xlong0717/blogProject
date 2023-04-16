@@ -1,5 +1,7 @@
 
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import { storeToRefs } from 'pinia';
+import { useDialogs } from '@/store/dialog';
 const isDev = process.env.NODE_ENV == 'development';
 const request = axios.create({
   // baseURL: 'http://127.0.0.1:3000',
@@ -22,6 +24,8 @@ declare module "axios" {
 //请求拦截器
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    let store = useDialogs()
+    store.SETLOADING(false);
     if (config.headers) {
       config.headers.token = sessionStorage.getItem('token') || '';
     }
@@ -34,6 +38,10 @@ request.interceptors.request.use(
 //响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse) => {
+    let store = useDialogs()
+    if(response.data.code){
+      store.SETLOADING(true);
+    }
     return response.data;
   },
   (error: any) => {

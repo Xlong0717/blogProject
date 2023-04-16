@@ -42,7 +42,9 @@
         :particlesLoaded="particlesLoaded"
         :options="options"
       />
+      
     </div>
+
 
     <div class="content-wrap common-layout">
       <el-container class="contai">
@@ -53,10 +55,13 @@
           </el-aside>
           <el-container>
             <el-main>
-              <router-view />
+              <router-view ref="text1" />
             
             </el-main>
             <el-footer>
+              <div :style="styleFlag? '  display: flex;  justify-content: center;  align-items: center;' : '' ">
+              <div class="footerAbstol" v-if="loadingFlag" :style="styleFlag?  '  position: fixed; bottom: 20px;' :'' ">鄂ICP备2022009158号-1</div> 
+            </div>
               <!-- <p>
           © 2019 — 2021
           <el-divider direction="vertical"></el-divider>
@@ -90,7 +95,9 @@
   </div>
 
 
-  
+     <div class="foooter">
+    
+    </div>
 
 </template>
 
@@ -100,18 +107,32 @@ import HeaderView from './header.vue';
 // import live2d from 'vue-live2d';
 import serchVue from '@/components/serch.vue'
 import {useDialogs} from '@/store/dialog'
+import { storeToRefs } from 'pinia';
 
 import { loadFull } from 'tsparticles';
 import { useRoute, useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { onMounted, ref,watch} from 'vue';
+
+const store = useDialogs();
+const { loadingFlag } = storeToRefs(store);
 
 const route = useRoute();
 const router = useRouter();
-
+console.log(route,'routerouterouteroute')
 const particlesInit = async (engine: any) => {
   await loadFull(engine);
 };
 
+let styleFlag = ref<boolean>(false);
+ watch(()=>router.currentRoute.value.path,(path)=>{
+    console.log(path,'path')
+    if(path == '/Tags' || path == '/About' || path == '/Archive'){
+      styleFlag.value = true;
+    }else{
+      styleFlag.value = false;
+
+    }
+ },{immediate: true,deep: true})
 
 const dialogFlag = ref<boolean>(true);
 
@@ -290,16 +311,31 @@ const pathRoute =(item:any)=>{
 
 
 
+onMounted(()=>{
+
+  
+})
+
+
 let bannerFlag = ref(false);
 </script>
 
 <style lang="scss" scoped>
+.bkpro-login-canvas{
+  position: relative;
+}
+.footerAbstol{
+  // position: absolute;
+  // bottom: 20px;
+  // z-index: 999999999;
+}
 .router_serch{
 
 }
 .serchVue{
   // position: relative;
   // z-index: 2;
+
 
 }
 .app{
@@ -442,6 +478,7 @@ let bannerFlag = ref(false);
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  // height: 100%;
 }
 
 .el-footer {
@@ -523,5 +560,7 @@ let bannerFlag = ref(false);
 .el-footer {
   height: auto !important;
   padding-bottom: 20px;
+  width: 100%;
 }
+
 </style>
